@@ -1,0 +1,68 @@
+@CHARSET "UTF-8";
+html,body {
+	height:100%;
+}
+body {
+	background:#F1F1F1;
+}
+a {
+	text-decoration:none!important;
+}
+.logo {color:#FFFFFF;padding-left:20px;margin-bottom:20px;}
+.table {background:#FFFFFF;}
+.sidebar {
+	background:#23282d;
+	padding-bottom:20px;
+}
+.sidebar li,.sidebar li.active,.sidebar li a {
+	border-radius:0px;
+}
+.sidebar .nav > li > a:focus,.sidebar .nav > li > a:hover{
+	background-color: #337ab7;
+    color: #fff;
+}
+.sidebar * {
+	color:#FFFFFF;
+}
+.sidebar > ul > li > a {
+	/* padding-left:0px;
+	padding-right:0px; */
+	font-size:14px;
+	color:#FFFFFF;
+	font-weight:bold;
+}
+.sidebar > ul > li > ul {
+	padding-left:15px;
+} 
+.sidebar > ul > li > a {
+	margin-bottom:5px;
+}
+.sidebar > ul > li > ul > li {
+	padding-top:5px;
+	padding-bottom:5px;
+}
+.sidebar > ul > li > ul > li > a {
+	font-size:13px;
+}
+.pagination {
+	margin-top:0px;
+}
+.main {
+}
+.main .main-left {
+	width:160px;
+	position:fixed;
+	left:0px;top:0px;
+	height:100%;
+	background:#23282d;
+}
+.main .main-right {
+	
+	width:100%;
+	padding-left:180px;
+}
+
+.election-operation {
+	width:300px;
+	text-align:right;
+}

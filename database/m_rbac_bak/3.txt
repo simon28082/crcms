@@ -1,0 +1,221 @@
+users  #用户
+
+app_authorizes #应用权限 - 支持多站点
+	id
+	name
+	app_key 惟一key
+	status 状态 (有效|无效)
+	remark - 备注
+	created_at
+	updated_at
+	deleted_at
+
+permissions  #权限
+	id
+	method - 请求方式(GET|POST|PUT|DELETE)
+	node - 权限节点
+	name - 权限名称
+	app_id - 应用权限id
+	status - 状态(开启或关闭)
+	remark - 备注
+	created_at
+	updated_at
+	deleted_at
+
+	app_id+node+method = (unique)
+
+roles #角色
+	id
+	name - 角色名称
+	app_id - 应用权限id
+	status - 状态(开启或关闭)
+	remark - 备注
+	created_at
+	updated_at
+	deleted_at
+	
+	
+user_roles  #user和角色关系
+	user_id - 
+	role_id - 
+
+
+permission_role #权限和角色关系
+	permission_id - 权限id
+	role_id - 角色Id
+
+
+navs #数据导航表
+	id 
+	parent_id
+	name - 名称
+	url - 链接url
+	status - 状态
+	remark - 
+	created_at
+	updated_at
+	deleted_at
+	
+	
+
+nav_permission #导航权限表
+	permission_id - 权限id
+	nav_id - 
+
+支持model调用，支持网络读取
+
+
+
+
+以一个列表功能为例（看成是文件）
+
+
+getList
+postList
+deleteList
+getDetailList
+
+
+有两个用户
+user1 ,user2
+
+三个组
+group1 group2 group3
+
+group1->getList
+group2->deleteList
+group3->postList
+
+user1 -> group1,group2 -> getList,deleteList
+user2 -> group3 -> postList
+
+
+
+
+
+
+
+
+
+
+data 真实数据表数据  必须包含的字段  user_id
+
+	
+
+permission
+	node 权限类型如RWE
+	data_id
+	
+
+role 角色列表
+	name
+
+user_roles
+	group_id
+	user_id
+	
+
+	
+user_permission
+
+roles_permission	
+	
+	
+//查询user所有权限	
+userPremission = select * from user_permission where user_id=?
+
+if(userPremission) // id 1,2,3
+{
+	select * from permission where id in(1,2,3);
+}
+//查询结果读写查
+R W E
+if(R)
+{
+	//查询数据
+	select * from data where 
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+premission
+	node data
+
+data_premission
+	 
+
+
+users
+	
+group
+
+other
+
+
+
+
+755
+
+user group other
+user role  other
+
+
+db alice office 
+    rw    rw     r
+
+alice    office
+bob      office
+alex     security
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
