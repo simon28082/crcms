@@ -75,7 +75,7 @@ abstract class PackageServiceProvider extends ServiceProvider
         if (! $this->app->routesAreCached()) {
             Route::group([
                 'middleware' => 'web',
-                'namespace' => 'Simon\\' . ucwords($this->namespaceName) . '\\Http\Controllers',
+                'namespace' => 'Simon\\' . ucwords($this->namespaceName) . '\Http\Controllers',
             ], function ($router) {
                 $file = $this->packagePath . 'routes' . DIRECTORY_SEPARATOR . 'web.php';
                 file_exists($file) && require $file;
@@ -92,7 +92,7 @@ abstract class PackageServiceProvider extends ServiceProvider
         {
             Route::group([
                 'middleware' => 'api',
-                'namespace' => 'Simon\\'.ucwords($this->namespaceName).'\\Http\Controllers',
+                'namespace' => 'Simon\\'.ucwords($this->namespaceName).'\Http\Controllers\Api',
             ], function ($router) {
                 $file = $this->packagePath.'routes'.DIRECTORY_SEPARATOR.'api.php';
                 file_exists($file) && require $file;
