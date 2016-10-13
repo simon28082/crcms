@@ -9,12 +9,23 @@
 namespace Simon\Discuss\Models;
 
 
+use Laravel\Scout\Searchable;
 use Simon\Kernel\Models\Model;
 
 class DiscussData extends Model
 {
 
+    use Searchable;
+
+    /**
+     * @var string
+     */
     protected $table = 'discuss_datas';
+
+    /**
+     * @var string
+     */
+    protected $primaryKey = 'did';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -30,6 +41,6 @@ class DiscussData extends Model
      */
     public $timestamps = false;
 
-    protected $primaryKey = 'did';
+
 
 }

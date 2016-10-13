@@ -6,8 +6,8 @@
  * Time: 20:01
  */
 namespace Simon\Discuss\Providers;
-use Simon\Discuss\Repositorys\DiscussRepository;
-use Simon\Discuss\Repositorys\Interfaces\DiscussRepositoryInterface;
+use Simon\Discuss\Repositories\DiscussRepository;
+use Simon\Discuss\Repositories\Interfaces\DiscussRepositoryInterface;
 use Simon\Kernel\Providers\PackageServiceProvider;
 
 

@@ -183,7 +183,10 @@ return [
         Mews\Captcha\CaptchaServiceProvider::class,
         Simon\Filter\FilterServiceProvider::class,
         Simon\Safe\SafeServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
 
+        Dingo\Api\Provider\LaravelServiceProvider::class,
 
 
         /* 以下是系统模块自己的服务提供器，最后添加，可能需要用到Laravel的注册提交器*/
@@ -204,7 +207,7 @@ return [
 
         Simon\Discuss\Providers\DiscussServiceProvider::class,
 
-        Barryvdh\Debugbar\ServiceProvider::class,
+
 
     ],
 
@@ -258,6 +261,7 @@ return [
 //        'Geetest' => Germey\Geetest\Geetest::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Input'=>Simon\Filter\Facades\Input::class,
+        'Api'=>\Dingo\Api\Facade\API::class,
 
         //自定义
         'User'=>Simon\User\Facades\User::class,

@@ -18,25 +18,12 @@ use Simon\Kernel\Facades\Visited;
 abstract class KernelRequest extends FormRequest
 {
 
+    /**
+     * @return bool
+     */
     public function authorize()
     {
-        //
-        //增加访问次数记录
-//        if ($this->method() !== 'GET') app(Visited::class)->put();
-
-
-
         return true;
-    }
-
-    public function validate()
-    {
-        if ($this->method() === 'GET')
-        {
-            return ;
-        }
-
-        parent::validate();
     }
 
     /**
@@ -47,20 +34,6 @@ abstract class KernelRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new ValidateException($validator);
-    }
-
-    public function isOpenVerifyCode() : bool
-    {
-        return false;
-        // TODO: Implement isOpenVerifyCode() method.
-        $visited = Visited::get();
-
-        if ($visited)
-        {
-            return time() - $visited['time'] < 20;
-        }
-
-        return false;
     }
 
 }

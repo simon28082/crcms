@@ -9,12 +9,24 @@
 namespace Simon\Discuss\Models;
 
 
+use Laravel\Scout\Searchable;
 use Simon\Kernel\Models\Model;
+use Simon\Kernel\Models\Traits\SoftDeletes;
 
 class Discuss extends Model
 {
 
+    use SoftDeletes,Searchable;
+
+    /**
+     * @var string
+     */
     protected $table = 'discuss';
+
+    /**
+     * @var array
+     */
+    protected $hidden = ['deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

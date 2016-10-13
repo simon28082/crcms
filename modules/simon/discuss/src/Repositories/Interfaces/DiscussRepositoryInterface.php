@@ -6,10 +6,10 @@
  * Time: 18:30
  */
 
-namespace Simon\Discuss\Repositorys\Interfaces;
+namespace Simon\Discuss\Repositories\Interfaces;
 
 
-use Simon\Kernel\Repositorys\RepositoryInterface;
+use Simon\Kernel\Repositories\RepositoryInterface;
 
 interface DiscussRepositoryInterface extends RepositoryInterface
 {

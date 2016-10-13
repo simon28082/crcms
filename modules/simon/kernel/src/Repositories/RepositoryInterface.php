@@ -5,7 +5,8 @@
  * Date: 2016/8/21
  * Time: 11:46
  */
-namespace Simon\Kernel\Repositorys;
+namespace Simon\Kernel\Repositories;
+
 interface RepositoryInterface
 {
     /**

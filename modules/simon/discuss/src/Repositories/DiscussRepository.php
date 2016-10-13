@@ -6,15 +6,15 @@
  * Time: 18:29
  */
 
-namespace Simon\Discuss\Repositorys;
+namespace Simon\Discuss\Repositories;
 
 
 use Simon\Discuss\Models\Discuss;
 use Simon\Discuss\Models\DiscussData;
-use Simon\Discuss\Repositorys\Interfaces\DiscussRepositoryInterface;
-use Simon\Kernel\Repositorys\AbstraceRepository;
+use Simon\Discuss\Repositories\Interfaces\DiscussRepositoryInterface;
+use Simon\Kernel\Repositories\AbstractRepository;
 
-class DiscussRepository extends AbstraceRepository implements DiscussRepositoryInterface
+class DiscussRepository extends AbstractRepository implements DiscussRepositoryInterface
 {
 
     const STATUS_OPEN = 1;

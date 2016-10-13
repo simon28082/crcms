@@ -22,4 +22,10 @@ class DiscussRequest extends KernelRequest
         ];
     }
 
+    public function attributes()
+    {
+        return [
+
+        ];
+    }
 }

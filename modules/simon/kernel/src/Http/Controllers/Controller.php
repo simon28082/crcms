@@ -44,8 +44,7 @@ class Controller extends BaseController
     {
         $this->request = app('request');
 
-//        $this->input = Input::get();//$this->request->all();
-        $this->input = $this->request->all();;//$this->request->all();
+        $this->input = Input::all();
 
         DB::enableQueryLog();
     }
@@ -70,10 +69,10 @@ class Controller extends BaseController
      * @param null $url
      * @return $this|\Illuminate\Http\JsonResponse
      */
-    protected function response($status,$data = [],$url = null)
-    {
-        return responding($status,$data,$url);
-    }
+//    protected function response($status,$data = [],$url = null)
+//    {
+//        return responding($status,$data,empty($url) ? response_json() : $url);
+//    }
 
     /**
      * @param null $url

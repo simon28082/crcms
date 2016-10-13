@@ -6,16 +6,16 @@
  * Time: 11:48
  */
 
-namespace Simon\Kernel\Repositorys;
+namespace Simon\Kernel\Repositories;
 
 
 use Illuminate\Database\Eloquent\Model;
 
-abstract class AbstraceRepository
+abstract class AbstractRepository
 {
     protected $model = null;
 
-    public function __construct(Model $Model)
+    public function __construct(Model $Model = null)
     {
         $this->model = $Model;
     }
