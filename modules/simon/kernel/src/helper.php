@@ -569,7 +569,7 @@ use Illuminate\Http\Response;
 // 			return $redirect->with($response)->withInput(array_merge($request->all(),$data));
 // 		}
 // 	}
-	
+
     /**
      *
      * @param string $appMessage
@@ -582,42 +582,46 @@ use Illuminate\Http\Response;
 
         if (is_array($appMessage))
         {
-            list($key,$sub) = explode('.',$appMessage[0]);
-
-            if (empty($appMessage[1]))
+            //在验证时，validate 或其它异常 已经处理过格式了
+            if (count($appMessage) !== 3)
             {
+                list($key,$sub) = explode('.',$appMessage[0]);
 
-                //读取自己文件的状态码
-                if ((bool)$temp = config()->get("code.{$key}.app.{$sub}"))
+                if (empty($appMessage[1]))
                 {
-                    $appMessage[1] = $temp;
-                }
-                //读取公共状态码
-                elseif ((bool)$temp = config()->get("code.app.{$sub}"))
-                {
-                    $appMessage[1] = $temp;
-                }
-                else
-                {
-                    $appMessage[1] = $appCode;
-                }
-            }
 
-            if (empty($appMessage[2]))
-            {
-                //读取自己文件的状态码
-                if ((bool)$temp = config()->get("code.{$key}.http.{$sub}"))
-                {
-                    $appMessage[2] = $temp;
+                    //读取自己文件的状态码
+                    if ((bool)$temp = config()->get("code.{$key}.app.{$sub}"))
+                    {
+                        $appMessage[1] = $temp;
+                    }
+                    //读取公共状态码
+                    elseif ((bool)$temp = config()->get("code.app.{$sub}"))
+                    {
+                        $appMessage[1] = $temp;
+                    }
+                    else
+                    {
+                        $appMessage[1] = $appCode;
+                    }
                 }
-                //读取公共状态码
-                elseif ((bool)$temp = config()->get("code.http.{$sub}"))
+
+                if (empty($appMessage[2]))
                 {
-                    $appMessage[2] = $temp;
-                }
-                else
-                {
-                    $appMessage[2] = $httpCode;
+                    //读取自己文件的状态码
+                    if ((bool)$temp = config()->get("code.{$key}.http.{$sub}"))
+                    {
+                        $appMessage[2] = $temp;
+                    }
+                    //读取公共状态码
+                    elseif ((bool)$temp = config()->get("code.http.{$sub}"))
+                    {
+                        $appMessage[2] = $temp;
+                    }
+                    else
+                    {
+                        $appMessage[2] = $httpCode;
+                    }
                 }
             }
 
