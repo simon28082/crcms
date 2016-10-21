@@ -8,6 +8,7 @@
 namespace Simon\User\Http\Controllers;
 use Germey\Geetest\CaptchaGeetest;
 use Illuminate\Support\Facades\Mail;
+use Jenssegers\Agent\Agent;
 use Simon\Filter\Drives\XssFilter;
 use Simon\Filter\Facades\Input;
 use Simon\Kernel\Exceptions\AppException;
@@ -21,10 +22,11 @@ use Simon\User\Facades\User;
 use Simon\User\Http\Requests\LoginRequest;
 use Simon\User\Http\Requests\RegisterRequest;
 use Simon\User\Mails\RegisterMail;
+use Simon\User\Repositories\Interfaces\SecretRepositoryInterface;
+use Simon\User\Repositories\Interfaces\UserRepositoryInterface;
 use Simon\User\Repositorys\AuthLogRepository;
 use Simon\User\Repositorys\Interfaces\AuthLogRepositoryInterface;
 use Simon\User\Repositorys\Interfaces\UserMailCodeRepositoryInterface;
-use Simon\User\Repositorys\Interfaces\UserRepositoryInterface;
 use Simon\User\Repositorys\UserMailCodeRepository;
 use Simon\User\Repositorys\UserRepository;
 use Simon\User\Services\Interfaces\UserMailVerifyInterface;
@@ -39,10 +41,11 @@ class AuthController extends Controller
 
     protected $view = 'user::default.auth.';
 
-    public function __construct(UserRepositoryInterface $User)
+    public function __construct(UserRepositoryInterface $repository)
     {
         parent::__construct();
-        $this->repository = $User;
+
+        $this->repository = $repository;
     }
 
     public function getLogout()
@@ -80,8 +83,6 @@ class AuthController extends Controller
      */
     public function postLogin(LoginRequest $LoginRequest)
     {
-        Visited::put();
-
         //verify
         $user = $this->repository->login($this->input,ip_long($this->request->ip()));
 
@@ -89,30 +90,21 @@ class AuthController extends Controller
 
         return $this->redirectRoute('user');
     }
-
-    public function getRegister(RegisterRequest $RegisterRequest)
-    {
-
-//        dd(
-//            $this->request->path(),
-//            $this->request->url(),$this->request->fullUrl(),$this->request->route(),
-//            $this->request->root(),
 //
-//            $this->request->route()->getName(),
-//            $this->request->route()->getAction(),
-//            $this->request->route()->getUri(),
-//            $this->request->route()->getPrefix(),
-//            $this->request->route()->parameters(),
-//            $this->request->route()->getActionName()
-//        );
+//    public function getRegister(RegisterRequest $RegisterRequest)
+//    {
+//
+//        $openVerify = $RegisterRequest->isOpenVerifyCode();
+//
+//        return $this->view('register',compact('openVerify'));
+//    }
 
-        $openVerify = $RegisterRequest->isOpenVerifyCode();
-
-        return $this->view('register',compact('openVerify'));
-    }
-
-    public function postRegister(RegisterRequest $RegisterRequest,UserMailCodeRepositoryInterface $UserMailCode,AuthLogRepositoryInterface $AuthLog)
+    public function postRegister(RegisterRequest $registerRequest,SecretRepositoryInterface $secretRepository,UserMailCodeRepositoryInterface $UserMailCode,AuthLogRepositoryInterface $AuthLog)
     {
+
+        $secret = $secretRepository->create([]);
+
+        $user = $this->repository->register($this->request,app(Agent::class),$se)
 
         //Register
 //        $user = $Register->register($this->input)->getUser();

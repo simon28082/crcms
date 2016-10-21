@@ -11,8 +11,8 @@ Route::resource('discusses','DiscussController',[
     'only'=>['index','store','show'],
 ]);
 
-$api = app('Dingo\Api\Routing\Router');
-
-$api->version('v1', function ($api) {
-    $api->get('/abc','Simon\Discuss\Http\Controllers\Api\DiscussController@index');
-});
+//$api = app('Dingo\Api\Routing\Router');
+//
+//$api->version('v1', function ($api) {
+//    $api->get('/abc','Simon\Discuss\Http\Controllers\Api\DiscussController@index');
+//});

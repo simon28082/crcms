@@ -91,7 +91,8 @@ abstract class PackageServiceProvider extends ServiceProvider
         if (! $this->app->routesAreCached())
         {
             Route::group([
-                'middleware' => 'api',
+                'middleware' => ['api'],
+                'prefix'=>'api',
                 'namespace' => 'Simon\\'.ucwords($this->namespaceName).'\Http\Controllers\Api',
             ], function ($router) {
                 $file = $this->packagePath.'routes'.DIRECTORY_SEPARATOR.'api.php';

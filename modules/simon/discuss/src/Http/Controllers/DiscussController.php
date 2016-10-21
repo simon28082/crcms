@@ -8,9 +8,8 @@
 
 namespace Simon\Discuss\Http\Controllers;
 
-
 use Simon\Discuss\Http\Requests\DiscussRequest;
-use Simon\Discuss\Repositorys\Interfaces\DiscussRepositoryInterface;
+use Simon\Discuss\Repositories\Interfaces\DiscussRepositoryInterface;
 use Simon\Kernel\Http\Controllers\Controller;
 
 class DiscussController extends Controller

@@ -12,6 +12,8 @@ namespace Simon\Kernel\Services\Interfaces;
 interface VerifyCodeInterface
 {
 
-    public function isOpenVerifyCode() : bool;
+    public function getCode();
+
+    public function sendCode();
 
 }

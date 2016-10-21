@@ -9,6 +9,7 @@
 namespace Simon\Discuss\Http\Controllers\Api;
 
 
+use App\UserTransformer;
 use Dingo\Api\Routing\Helpers;
 use Dingo\Api\Tests\Stubs\UserTransformerStub;
 use Simon\Discuss\Http\Requests\DiscussRequest;
@@ -19,33 +20,45 @@ use Simon\User\Models\User;
 class DiscussController extends Controller
 {
 
-    use Helpers;
+//    use Helpers {
+//        response as apiResponse;
+//    }
 
     public function __construct(DiscussRepositoryInterface $repository)
     {
         $this->repository = $repository;
+
         parent::__construct();
     }
 
     public function index()
     {
-        $user = User::all();
+//        $user = User::all();
+
+        $user = User::paginate(5);
+
+        return $user;
+
+        return $this->response(['app.success'],compact('user'));
+
+//        return $this->apiResponse()->paginator($user,new UserTransformer,['a'=>'b']);
+
 //        return $this->response->collection($user,new UserTransformerStub);
-        return $this->response->error('This is an error.', 404);
+//        return $this->response->error('This is an error.', 404);
     }
 
     public function store(DiscussRequest $discussRequest)
     {
         $model = $this->repository->create($this->input);
 
-        return $this->redirectRoute('discuss.show',['id'=>$model->id]);
+        return $this->response(['app.success'],compact('model'));
     }
 
     public function show($id)
     {
         $model = $this->repository->findById($id);
 
-        return $this->view('show',compact('model'));
+        return $model;
     }
 
 }

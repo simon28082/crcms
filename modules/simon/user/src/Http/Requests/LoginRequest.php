@@ -29,7 +29,7 @@ class LoginRequest extends KernelRequest implements VerifyCodeInterface
         return [
             'name'=>['required','regex:/^[\w]{3,16}$/i'],
             'password'=>['required','max:16','min:6'],
-            'verify_code'=>$this->isOpenVerifyCode() ? ['required','captcha'] : [],
+//            'verify_code'=>$this->isOpenVerifyCode() ? ['required','captcha'] : [],
         ];
     }
 

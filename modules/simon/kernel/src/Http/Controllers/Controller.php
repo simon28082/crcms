@@ -69,10 +69,10 @@ class Controller extends BaseController
      * @param null $url
      * @return $this|\Illuminate\Http\JsonResponse
      */
-//    protected function response($status,$data = [],$url = null)
-//    {
-//        return responding($status,$data,empty($url) ? response_json() : $url);
-//    }
+    protected function response($status,$data = [],$url = null)
+    {
+        return responding($status,$data,empty($url) ? response_json() : $url);
+    }
 
     /**
      * @param null $url

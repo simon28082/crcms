@@ -32,7 +32,7 @@ class RegisterRequest extends KernelRequest implements VerifyCodeInterface
     {
         return [
             'name'=>['required','regex:/^[\w]{3,16}$/i','unique:users'],
-            'email'=>['required','email','unique:users'],
+//            'email'=>['required','email','unique:users'],
             'password'=>['required','max:16','min:6'],
         ];
     }
