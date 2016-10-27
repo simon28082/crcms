@@ -208,6 +208,8 @@ return [
         Simon\Discuss\Providers\DiscussServiceProvider::class,
 
 
+        //manage
+        CrCms\Manage\Providers\ManageServiceProvider::class,
 
     ],
 
