@@ -8,8 +8,9 @@
         "php": ">=7.0",
         "laravel/framework": "5.3.*",
         "crcms/kernel": "dev-master",
-        "crcms/manage": "dev-master"
-
+        "crcms/manage": "dev-master",
+        "crcms/category": "dev-master",
+        "crcms/document": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -50,5 +51,11 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability":"dev"
+    "minimum-stability":"dev",
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
 }
