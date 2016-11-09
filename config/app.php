@@ -181,6 +181,7 @@ return [
         \CrCms\Kernel\Providers\KernelServiceProvider::class,
         \CrCms\Manage\Providers\ManageServiceProvider::class,
         \CrCms\Category\Providers\CategoryServiceProvider::class,
+        \CrCms\Document\Providers\DocumentServiceProvider::class,
     ],
 
     /*
