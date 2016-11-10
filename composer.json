@@ -10,7 +10,10 @@
         "crcms/kernel": "dev-master",
         "crcms/manage": "dev-master",
         "crcms/category": "dev-master",
-        "crcms/document": "dev-master"
+        "crcms/form": "dev-master",
+        "crcms/log": "dev-master",
+        "crcms/document": "dev-master",
+        "jenssegers/agent": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
