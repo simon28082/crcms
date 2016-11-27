@@ -182,6 +182,7 @@ return [
         \CrCms\Manage\Providers\ManageServiceProvider::class,
         \CrCms\Category\Providers\CategoryServiceProvider::class,
         \CrCms\Document\Providers\DocumentServiceProvider::class,
+        \CrCms\Form\FormServiceProvider::class,
     ],
 
     /*
