@@ -12,7 +12,7 @@
             "dist": {
                 "type": "path",
                 "url": "packages/foundation",
-                "reference": "46610641d56d722734d9eba9ff5605f73d5bd875",
+                "reference": "a300ea1e558095c0839fd46625261a800fa30830",
                 "shasum": null
             },
             "require": {
@@ -22,7 +22,10 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [],
+                    "providers": [
+                        "CrCms\\Foundation\\Providers\\FoundationServiceProvider",
+                        "CrCms\\Foundation\\Providers\\ModuleServiceProvider"
+                    ],
                     "aliases": [],
                     "dont-discover": [
                         "nwidart/laravel-modules"

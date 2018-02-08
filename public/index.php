@@ -8,5 +8,5 @@ require realpath(__DIR__.'/../'.DIRECTORY_SEPARATOR.'vendor/autoload.php');
     new \CrCms\Foundation\Application(
         __DIR__.'/../'
     ),
-    \CrCms\Foundation\StartFactory::factory($argv[1] ?? \CrCms\Foundation\StartFactory::TYPE_WEB_SERVER)
+    \CrCms\Foundation\StartFactory::factory($_SERVER['argv'][1] ?? \CrCms\Foundation\StartFactory::TYPE_WEB_SERVER)
 );
