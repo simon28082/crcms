@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+//    $k = 0;
+//    for($i=0;$i<=100000;$i++) {
+//        $k += $i;
+//    }
+
+    return 123;
 });

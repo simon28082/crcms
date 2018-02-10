@@ -26,6 +26,22 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $this->dispatch($schedule);
+    }
+
+
+    /**
+     * Define the application's command schedule.
+     *
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @return void
+     */
+    protected function dispatch(Schedule $schedule)
+    {
+        foreach (config('foundation.schedules') as $scheduleCommand) {
+            (new $scheduleCommand)->handle($schedule);
+        }
     }
 
     /**

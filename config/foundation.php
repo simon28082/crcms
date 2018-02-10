@@ -29,9 +29,4 @@ return [
     'schedules' => [
 
     ],
-
-    'expanders' => [
-        'http' => CrCms\Foundation\Http\KernelExpander::class,
-        'console' => CrCms\Foundation\Console\KernelExpander::class,
-    ]
 ];
