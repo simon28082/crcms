@@ -13,7 +13,6 @@ class Artisan implements StartContract
     public function start(Container $app)
     {
         $argvs = $_SERVER['argv'];
-//        unset($argvs[1]);
 
         $kernel = $app->make(Kernel::class);
 
