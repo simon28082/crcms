@@ -4,12 +4,20 @@ namespace CrCms\Foundation\Swoole\Events;
 
 use Swoole\Server;
 
-abstract class AbstractEvent
+abstract class AbstractEvent implements EventContract
 {
-
+    /**
+     * @var Server
+     */
     protected $server;
 
-    protected $fd;
+    public function handle(Server $server) : void
+    {
+        $this->server = $server;
+    }
 
-    protected $reactorId;
+    public function getServer(): Server
+    {
+        return $this->server;
+    }
 }

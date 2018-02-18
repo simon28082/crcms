@@ -1,10 +1,11 @@
 <?php
 
-namespace CrCms\Foundation\Swoole\Events;
+namespace CrCms\Foundation\Swoole\Events\Http;
 
 use Carbon\Carbon;
+use CrCms\Foundation\Swoole\Events\AbstractEvent;
+use CrCms\Foundation\Swoole\Events\EventContract;
 use Illuminate\Http\Response as IlluminateResponse;
-use function PHPSTORM_META\map;
 use Swoole\Async;
 use Swoole\Http\Request as SwooleRequest;
 use Swoole\Http\Response as SwooleResponse;
@@ -57,15 +58,11 @@ class RequestEvent extends AbstractEvent implements EventContract
      */
     public function handle(Server $server) : void
     {
-        dump('aaaaa');
-
-        dump($this->illuminateRequest->getUri());
         parent::handle($server);
 
         $this->requestLog();
 
-//        $this->setResponse();
-
+        $this->setResponse();
     }
 
     /**

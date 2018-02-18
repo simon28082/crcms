@@ -6,6 +6,10 @@ use Swoole\Server;
 
 class CloseEvent extends AbstractEvent implements EventContract
 {
+    protected $fd;
+
+    protected $reactorId;
+
     /**
      * CloseEvent constructor.
      * @param Server $server

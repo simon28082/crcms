@@ -4,12 +4,8 @@ namespace CrCms\Foundation\Start\Drivers;
 
 use CrCms\Foundation\StartContract;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Http\Kernel;
-use Swoole\Http\Request;
-use Swoole\Http\Response;
-use Swoole\Http\Server;
-use Symfony\Component\HttpFoundation\ParameterBag;
-use Illuminate\Config\Repository;
+use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 /**
  * Class Swoole
@@ -17,33 +13,52 @@ use Illuminate\Config\Repository;
  */
 class Swoole implements StartContract
 {
+    /**
+     * @var
+     */
     protected $server;
 
+    /**
+     * @var
+     */
     protected $app;
 
+    /**
+     * @var
+     */
     protected $config;
 
-    public function __construct()
-    {
-
-    }
-
+    /**
+     *
+     */
     protected function setConfig()
     {
         $this->config = require_once $this->app->configPath('swoole.php');
     }
 
+    /**
+     * @param Container $app
+     */
     protected function setApp(Container $app)
     {
         $this->app = $app;
     }
 
+    /**
+     *
+     */
     protected function initialization()
     {
-        $this->server = new Server($this->config['host'], $this->config['port']);
+        $serverDrive = $this->config['servers'][$this->config['server_type']]['drive'];
+        $serverParams = array_merge([$this->config['host'], $this->config['port']], $this->config['servers'][$this->config['server_type']]['params']);
+        $this->server = new $serverDrive(...$serverParams);
+        $this->server->set($this->config['settings']);
     }
 
-    public function start(Container $app): void
+    /**
+     * @param Container $app
+     */
+    public function start(Container $app) : void
     {
         $this->setApp($app);
 
@@ -51,25 +66,57 @@ class Swoole implements StartContract
 
         $this->initialization();
 
-        $this->server->on('request', [$this, 'onRequest']);
-        $this->server->on('close', [$this, 'onClose']);
+        $this->eventsCallback();
 
         $this->server->start();
     }
 
-    public function onClose(Server $server, $fd, int $reactorId)
+    /**
+     *
+     */
+    protected function eventsCallback()
     {
-        return (
-        new \CrCms\Foundation\Swoole\Events\CloseEvent($fd, $reactorId)
-        )->handle($this->server);
+        foreach ($this->config['events'] as $name => $event) {
+            if (class_exists($event)) {
+                $this->server->on(Str::camel($name), function () use ($name, $event) {
+                    $this->setEvents(Str::camel($name),$event,$this->filterServerParams(func_get_args()));
+                    $this->server->{Str::camel($name)}->handle($this->server);
+                });
+            }
+        }
     }
 
-    public function onRequest(Request $request, Response $response)
+    protected function filterServerParams(array $args): array
     {
-        return (
-        new \CrCms\Foundation\Swoole\Events\RequestEvent($request, $response)
-        )->handle($this->server);
+        return collect($args)->filter(function ($item) {
+            return !($item instanceof \Swoole\Server);
+        })->toArray();
     }
 
+    /**
+     * @param string $name
+     * @param string $event
+     * @param array $args
+     * @return void
+     */
+    protected function setEvents(string $name, string $event, array $args): void
+    {
+        $this->server->{$name} = new $event(...$args);
+    }
 
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function __get(string $name)
+    {
+        if (in_array(
+            Str::snake($name),
+            array_keys($this->config['events']), true
+        )) {
+            return $this->{Str::snake($name)};
+        }
+
+        throw new InvalidArgumentException('The attributes is not exists');
+    }
 }
