@@ -58,7 +58,7 @@ class Swoole implements StartContract
     /**
      * @param Container $app
      */
-    public function start(Container $app) : void
+    public function start(Container $app): void
     {
         $this->setApp($app);
 
@@ -66,26 +66,49 @@ class Swoole implements StartContract
 
         $this->initialization();
 
-        $this->eventsCallback();
+        $this->resolveEvents();
 
         $this->server->start();
     }
 
     /**
+     * @param string $name
+     * @param string $event
+     */
+    protected function eventsCallback(string $name, string $event)
+    {
+        if (!class_exists($event)) {
+            return;
+        }
+
+        $this->server->on(Str::camel($name), function () use ($name, $event) {
+            $this->setEvents(Str::camel($name), $event, $this->filterServerParams(func_get_args()));
+            $this->server->{Str::camel($name)}->handle($this->server);
+        });
+    }
+
+    /**
      *
      */
-    protected function eventsCallback()
+    protected function resolveEvents()
     {
         foreach ($this->config['events'] as $name => $event) {
-            if (class_exists($event)) {
-                $this->server->on(Str::camel($name), function () use ($name, $event) {
-                    $this->setEvents(Str::camel($name),$event,$this->filterServerParams(func_get_args()));
-                    $this->server->{Str::camel($name)}->handle($this->server);
-                });
+            if (is_array($event)) {
+                if ($name === $this->config['server_type']) {
+                    foreach ($event as $subName => $subEvent) {
+                        $this->eventsCallback($subName, $subEvent);
+                    }
+                }
+            } else {
+                $this->eventsCallback($name, $event);
             }
         }
     }
 
+    /**
+     * @param array $args
+     * @return array
+     */
     protected function filterServerParams(array $args): array
     {
         return collect($args)->filter(function ($item) {

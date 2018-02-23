@@ -12,7 +12,9 @@ use Swoole\Http\Response as SwooleResponse;
 use Illuminate\Http\Request as IlluminateRequest;
 use Illuminate\Contracts\Http\Kernel;
 use Swoole\Server;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 /**
  * Class RequestEvent
@@ -56,7 +58,7 @@ class RequestEvent extends AbstractEvent implements EventContract
     /**
      * @return void
      */
-    public function handle(Server $server) : void
+    public function handle(Server $server): void
     {
         parent::handle($server);
 
@@ -99,28 +101,69 @@ class RequestEvent extends AbstractEvent implements EventContract
     /**
      * @return IlluminateResponse
      */
-    protected function createIlluminateResponse() : Response
+    protected function createIlluminateResponse(): Response
     {
         $kernel = app()->make(Kernel::class);
 
         return $kernel->handle($this->illuminateRequest);
     }
 
-    /**
-     * @return IlluminateRequest
-     */
-    protected function createIlluminateRequest() : IlluminateRequest
+    protected function createFromGlobals(): SymfonyRequest
     {
-        $illuminateRequest = IlluminateRequest::capture();
+        // With the php's bug #66606, the php's built-in web server
+        // stores the Content-Type and Content-Length header values in
+        // HTTP_CONTENT_TYPE and HTTP_CONTENT_LENGTH fields.
+//        $server = $_SERVER;
+//        if ('cli-server' === PHP_SAPI) {
+//            if (array_key_exists('HTTP_CONTENT_LENGTH', $_SERVER)) {
+//                $server['CONTENT_LENGTH'] = $_SERVER['HTTP_CONTENT_LENGTH'];
+//            }
+//            if (array_key_exists('HTTP_CONTENT_TYPE', $_SERVER)) {
+//                $server['CONTENT_TYPE'] = $_SERVER['HTTP_CONTENT_TYPE'];
+//            }
+//        }
 
-        $illuminateRequest->initialize(
+//        $request = ::createRequestFromFactory($_GET, $_POST, array(), $_COOKIE, $_FILES, $server);
+        $request = new SymfonyRequest(
             $this->request->get ?? [],
             $this->request->post ?? [],
             [],
             $this->request->cookie ?? [],
             $this->request->files ?? [],
-            $this->mergeServerInfo()
+            $this->mergeServerInfo(),
+            $this->request->rawContent()
         );
+
+        if (0 === strpos($request->headers->get('CONTENT_TYPE'), 'application/x-www-form-urlencoded')
+            && in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), array('PUT', 'DELETE', 'PATCH'))
+        ) {
+            parse_str($request->getContent(), $data);
+            $request->request = new ParameterBag($data);
+        }
+
+        return $request;
+    }
+
+    /**
+     * @return IlluminateRequest
+     */
+    protected function createIlluminateRequest(): IlluminateRequest
+    {
+        IlluminateRequest::enableHttpMethodParameterOverride();
+
+        return IlluminateRequest::createFromBase($this->createFromGlobals());
+
+
+        $illuminateRequest = IlluminateRequest::capture();
+        dump($this->request->header, $this->request->rawContent(), $_SERVER, $this->request->server);
+//        $illuminateRequest->initialize(
+//            $this->request->get ?? [],
+//            $this->request->post ?? [],
+//            [],
+//            $this->request->cookie ?? [],
+//            $this->request->files ?? [],
+//            $this->mergeServerInfo()
+//        );
 
         return $illuminateRequest;
     }
@@ -128,7 +171,7 @@ class RequestEvent extends AbstractEvent implements EventContract
     /**
      * @return array
      */
-    protected function mergeServerInfo() : array
+    protected function mergeServerInfo(): array
     {
         $server = $_SERVER;
         if ('cli-server' === PHP_SAPI) {
@@ -141,12 +184,13 @@ class RequestEvent extends AbstractEvent implements EventContract
         }
 
         $requestHeader = collect($this->request->header)->mapWithKeys(function ($item, $key) {
-            return in_array($key, ['content_length', 'content_type', 'content_md5'], true) ?
-                [$key => $item] :
-                ['http_' . $key => $item];
+//            return in_array(strtolower($key), ['content-length', 'content-type', 'content-md5'], true) ?
+//                [str_replace('-', '_', $key) => $item] :
+               return ['http_' . str_replace('-', '_', $key) => $item];
         })->toArray();
 
-        $server = array_merge($server, $this->request->server, $requestHeader);
+        dump($this->request->header,$requestHeader);
+        $server = array_merge($server, $this->request->server,$requestHeader);//,$requestHeader
 
         return array_change_key_case($server, CASE_UPPER);
     }
