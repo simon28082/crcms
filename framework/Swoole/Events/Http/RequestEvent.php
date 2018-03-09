@@ -108,6 +108,24 @@ class RequestEvent extends AbstractEvent implements EventContract
         return $kernel->handle($this->illuminateRequest);
     }
 
+    /**
+     * @return array
+     */
+    protected function mergePostData(): array
+    {
+        $data = [];
+
+        if (strtoupper($this->request->server['request_method']) === 'POST') {
+            $data = empty($this->request->post) ? [] : $this->request->post;
+
+            if (stripos($this->request->header['content-type'], 'application/json') !== false) {
+                $data = array_merge($data, json_decode($this->request->rawContent(), true));
+            }
+        }
+//dump($data);
+        return $data;
+    }
+
     protected function createFromGlobals(): SymfonyRequest
     {
         // With the php's bug #66606, the php's built-in web server
@@ -124,15 +142,23 @@ class RequestEvent extends AbstractEvent implements EventContract
 //        }
 
 //        $request = ::createRequestFromFactory($_GET, $_POST, array(), $_COOKIE, $_FILES, $server);
+
+        //dump($this->request->files);
+
+        dump($this->request->get);
+//        dump($this->request->rawContent());
+
         $request = new SymfonyRequest(
             $this->request->get ?? [],
-            $this->request->post ?? [],
+            $this->mergePostData(),
             [],
             $this->request->cookie ?? [],
             $this->request->files ?? [],
-            $this->mergeServerInfo(),
-            $this->request->rawContent()
+            $this->mergeServerInfo()
+            ,$this->request->rawContent()
         );
+
+        //,$this->request->rawContent()
 
         if (0 === strpos($request->headers->get('CONTENT_TYPE'), 'application/x-www-form-urlencoded')
             && in_array(strtoupper($request->server->get('REQUEST_METHOD', 'GET')), array('PUT', 'DELETE', 'PATCH'))
@@ -154,8 +180,8 @@ class RequestEvent extends AbstractEvent implements EventContract
         return IlluminateRequest::createFromBase($this->createFromGlobals());
 
 
-        $illuminateRequest = IlluminateRequest::capture();
-        dump($this->request->header, $this->request->rawContent(), $_SERVER, $this->request->server);
+//        $illuminateRequest = IlluminateRequest::capture();
+//        dump($this->request->header, $this->request->rawContent(), $_SERVER, $this->request->server);
 //        $illuminateRequest->initialize(
 //            $this->request->get ?? [],
 //            $this->request->post ?? [],
@@ -165,7 +191,7 @@ class RequestEvent extends AbstractEvent implements EventContract
 //            $this->mergeServerInfo()
 //        );
 
-        return $illuminateRequest;
+//        return $illuminateRequest;
     }
 
     /**
@@ -184,13 +210,14 @@ class RequestEvent extends AbstractEvent implements EventContract
         }
 
         $requestHeader = collect($this->request->header)->mapWithKeys(function ($item, $key) {
-//            return in_array(strtolower($key), ['content-length', 'content-type', 'content-md5'], true) ?
-//                [str_replace('-', '_', $key) => $item] :
-               return ['http_' . str_replace('-', '_', $key) => $item];
+            $key = str_replace('-', '_', $key);
+            return in_array(strtolower($key), ['x_real_ip'], true) ?
+                [$key => $item] :
+                ['http_' . $key => $item];
         })->toArray();
 
-        dump($this->request->header,$requestHeader);
-        $server = array_merge($server, $this->request->server,$requestHeader);//,$requestHeader
+//        dump($this->request->header, $requestHeader);
+        $server = array_merge($server, $this->request->server, $requestHeader);//,$requestHeader
 
         return array_change_key_case($server, CASE_UPPER);
     }
@@ -200,7 +227,7 @@ class RequestEvent extends AbstractEvent implements EventContract
      */
     protected function requestLog()
     {
-        $file = storage_path('logs/' . date('Y-m-d') . '.log');
+        $file = storage_path('logs/request-' . date('Y-m-d') . '.log');
 
         $params = http_build_query($this->illuminateRequest->all());
         $currentTime = Carbon::now()->toDateTimeString();

@@ -3,7 +3,7 @@
 return [
     'host' => '0.0.0.0',
     'port' => 22,
-    'server_type' => 'web_socket',
+    'server_type' => 'http',
     'servers' => [
         'http' => [
             'drive' => Swoole\Http\Server::class,
@@ -23,7 +23,7 @@ return [
         ],
     ],
     'settings' => [
-
+        'package_max_length' => 1024 * 1024 * 10//单位：B
     ],
     'events' => [
         'start' => '',
@@ -43,11 +43,13 @@ return [
         'manager_start' => '',
         'manager_stop' => '',
 
-        //http
-        'request' => \CrCms\Foundation\Swoole\Events\Http\RequestEvent::class,
+        'http' => [
+            'request' => \CrCms\Foundation\Swoole\Events\Http\RequestEvent::class,
+        ],
 
-        //webSocket
-        'open'=>\CrCms\Foundation\Swoole\Events\WebSocket\OpenEvent::class,
-        'message' => \CrCms\Foundation\Swoole\Events\WebSocket\MessageEvent::class,
+        'web_socket' => [
+            'open'=>\CrCms\Foundation\Swoole\Events\WebSocket\OpenEvent::class,
+            'message' => \CrCms\Foundation\Swoole\Events\WebSocket\MessageEvent::class,
+        ]
     ]
 ];
