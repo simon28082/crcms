@@ -4,7 +4,7 @@ namespace CrCms\Foundation;
 
 use CrCms\Foundation\Start\Drivers\Artisan;
 use CrCms\Foundation\Start\Drivers\Swoole;
-use CrCms\Foundation\Start\Drivers\WebServer;
+use CrCms\Foundation\Start\Drivers\Laravel;
 
 /**
  * Class Factory
@@ -15,7 +15,7 @@ class StartFactory
     /**
      *
      */
-    const TYPE_WEB_SERVER = 'web_server';
+    const TYPE_LARAVEL = 'laravel';
 
     /**
      *
@@ -31,7 +31,7 @@ class StartFactory
      * @param string $type
      * @return string
      */
-    public static function factory(string $type = self::TYPE_WEB_SERVER): string
+    public static function factory(string $type = self::TYPE_LARAVEL): string
     {
         return static::drivers()[$type];
     }
@@ -42,9 +42,9 @@ class StartFactory
     protected static function drivers(): array
     {
         return [
-            'web_server' => WebServer::class,
-            'swoole' => Swoole::class,
-            'artisan' => Artisan::class,
+            self::TYPE_LARAVEL => Laravel::class,
+            self::TYPE_SWOOLE => Swoole::class,
+            self::TYPE_ARTISAN => Artisan::class,
         ];
     }
 }

@@ -51,7 +51,7 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 
 \CrCms\Foundation\Start::run(
     $app,
-    \CrCms\Foundation\StartFactory::factory($_SERVER['argv'][0] ?? \CrCms\Foundation\StartFactory::TYPE_WEB_SERVER)
+    \CrCms\Foundation\StartFactory::factory($_SERVER['argv'][0] ?? \CrCms\Foundation\StartFactory::TYPE_LARAVEL)
 );
 
 //$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);

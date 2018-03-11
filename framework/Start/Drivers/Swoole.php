@@ -128,6 +128,14 @@ class Swoole implements StartContract
     }
 
     /**
+     * @return \Swoole\Http\Server
+     */
+    public function getServer()
+    {
+        return $this->server;
+    }
+
+    /**
      * @param string $name
      * @return mixed
      */
