@@ -26,7 +26,7 @@ return [
         'package_max_length' => 1024 * 1024 * 10//单位：B
     ],
     'events' => [
-        'start' => '',
+        'start' => \CrCms\Foundation\Swoole\Events\StartEvent::class,
         'worker_start' => \CrCms\Foundation\Swoole\Events\WorkerStartEvent::class,
         'worker_stop' => '',
         'worker_exit' => '',
