@@ -2,7 +2,6 @@
     "name": "crcms/crcms",
     "description": "The CrCms Framework.",
     "keywords": ["crcms", "laravel"],
-    "license": "MIT",
     "type": "project",
     "require": {
         "php": "^7.1.3",
