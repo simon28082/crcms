@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'host' => '0.0.0.0',
-    'port' => 22,
+    'host' => '127.0.0.1',
+    'port' => 28080,
     'server_type' => 'http',
     'servers' => [
         'http' => [
@@ -25,6 +25,19 @@ return [
     'settings' => [
         'package_max_length' => 1024 * 1024 * 10//单位：B
     ],
+
+    'notify' => [
+        'targets' => [
+            base_path('modules'),
+            base_path('resources'),
+        ],
+        'monitor' => false,
+        'log_path' => storage_path('logs/reload.log')
+    ],
+    'error_log' => storage_path('logs/error_%s.log'),
+    'process_prefix' => 'swoole_',
+    'pid_file' => storage_path('swoole.pid'),
+    'request_log' => storage_path('logs/request-%s.log'),
     'events' => [
         'start' => \CrCms\Foundation\Swoole\Events\StartEvent::class,
         'worker_start' => \CrCms\Foundation\Swoole\Events\WorkerStartEvent::class,
@@ -40,7 +53,7 @@ return [
         'finish' => '',
         'pipe_message' => '',
         'worker_error' => '',
-        'manager_start' => '',
+        'manager_start' => \CrCms\Foundation\Swoole\Events\ManagerStartEvent::class,
         'manager_stop' => '',
 
         'http' => [
@@ -50,6 +63,7 @@ return [
         'web_socket' => [
             'open'=>\CrCms\Foundation\Swoole\Events\WebSocket\OpenEvent::class,
             'message' => \CrCms\Foundation\Swoole\Events\WebSocket\MessageEvent::class,
+//            'request' => \CrCms\Foundation\Swoole\Events\Http\RequestEvent::class,
         ]
     ]
 ];
