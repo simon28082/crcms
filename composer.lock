@@ -179,7 +179,7 @@
                 "attribute-contract",
                 "crcms"
             ],
-            "time": "2018-03-16T02:45:43+00:00"
+            "time": "2018-03-16T06:29:21+00:00"
         },
         {
             "name": "crcms/category",
@@ -451,11 +451,22 @@
         {
             "name": "crcms/user",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crcms/user.git",
+                "reference": "d0a253681c5943e05d97528285cf4e5af9b1b3be"
+            },
             "dist": {
-                "type": "path",
-                "url": "../packages/user",
-                "reference": "6aa1ae6cc2bb1551765fc243818289fc0e9d7cb3",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/crcms/user/zipball/d0a253681c5943e05d97528285cf4e5af9b1b3be",
+                "reference": "d0a253681c5943e05d97528285cf4e5af9b1b3be",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=7.1",
@@ -479,11 +490,7 @@
                     "CrCms\\User\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Tests\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -494,7 +501,8 @@
                 "laravel",
                 "php",
                 "user"
-            ]
+            ],
+            "time": "2018-04-21T14:59:58+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
