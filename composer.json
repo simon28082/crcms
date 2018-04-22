@@ -6,7 +6,9 @@
     "require": {
         "php": "^7.1.3",
         "crcms/framework": "dev-master",
-        "crcms/user": "*@dev"
+        "crcms/module": "dev-master",
+        "crcms/user": "dev-master",
+        "crcms/category": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0"
@@ -58,18 +60,6 @@
         "packagist": {
             "type": "composer",
             "url": "https://packagist.laravel-china.org"
-        },
-        "0": {
-            "type": "path",
-            "url": "../packages/module"
-        },
-        "2": {
-            "type": "path",
-            "url": "../packages/category"
-        },
-        "3": {
-            "type": "path",
-            "url": "../packages/user"
         }
     }
 }
