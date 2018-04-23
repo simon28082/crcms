@@ -66,7 +66,7 @@ class ResetPasswordVerificationErrorTest extends TestCase
     {
         $request = $this->app->make('request');
         $request->query = new ParameterBag([
-            'code' => $userVerificationModel->ext,
+            'token' => $userVerificationModel->ext,
             'user_id' => $userVerificationModel->user_id
         ]);
 
