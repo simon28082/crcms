@@ -54,6 +54,18 @@ return [
             'engine' => null,
         ],
 
+        'mongodb' => [
+            'driver'   => 'mongodb',
+            'host'     => 'mongo',//env('DB_HOST', 'mongo'),
+            'port'     => 27017,//env('DB_PORT', 27017),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => '',//env('DB_USERNAME'),
+            'password' => '',//env('DB_PASSWORD'),
+            'options'  => [
+                //'database' => 'admin' // sets the authentication database required by mongo 3
+            ]
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
