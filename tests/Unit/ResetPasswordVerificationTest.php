@@ -30,9 +30,7 @@ class ResetPasswordVerificationTest extends TestCase
      */
     protected function user(): UserModel
     {
-        return new UserModel([
-            'id' => UserModel::orderBy('created_at','desc')->firstOrFail()->id,
-        ]);
+        return UserModel::orderBy('created_at','desc')->firstOrFail();
     }
 
     protected function code(): string
@@ -45,7 +43,7 @@ class ResetPasswordVerificationTest extends TestCase
         $code = $this->code();
 
         $model = $this->verification()->create(
-            $this->user()->id,
+            $this->user(),
             UserAttribute::VERIFY_MAIL,
             $code
         );
@@ -68,20 +66,20 @@ class ResetPasswordVerificationTest extends TestCase
         ]);
 
         $verify = $this->verification($request);
-        $result = $verify->validate();
+        $result = $verify->exists($this->user(),$userVerificationModel->ext);
 
         $this->assertEquals($result, true);
 
-        return $verify;
+        return $this->verification($request)->current($this->user(),$userVerificationModel->ext);
     }
 
     /**
      * @depends testVerify
      * @param ResetPasswordVerification $resetPasswordVerification
      */
-    public function testUpdate(ResetPasswordVerification $resetPasswordVerification)
+    public function testUpdate(UserVerificationModel $userVerificationModel)
     {
-        $model = $resetPasswordVerification->update();
+        $model = $this->verification()->update($userVerificationModel,UserAttribute::VERIFY_STATUS_SUCCESS);
 
         $this->assertEquals(UserAttribute::VERIFY_STATUS_SUCCESS,$model->status);
     }
