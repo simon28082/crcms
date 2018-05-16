@@ -14,8 +14,7 @@ script: true
 after_failure: 
 after_success:
 - ssh root@47.52.153.68 'touch /tmp/abc'
-after_deploy:
+after_deploy: 
 after_script: 
 addons:
   ssh_known_hosts: 47.52.153.68
-
