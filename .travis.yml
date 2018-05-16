@@ -7,6 +7,9 @@ before_install:
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host 47.52.153.68\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
+addons:
+  ssh_known_hosts: 47.52.153.68
+
 install:
 - composer install
 before_script: 
