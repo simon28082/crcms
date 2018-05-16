@@ -18,7 +18,7 @@ after_success:
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
 - ssh-add /tmp/deploy_rsa
-- ssh root@47.52.153.68 'touch /tmp/abcd'
+- ssh root@47.52.153.68 'touch /tmp/abcde'
 after_deploy: 
 after_script: 
 addons:
