@@ -7,6 +7,7 @@ before_install:
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host 47.52.153.68\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- pecl install mongodb
 
 install:
 - composer install
