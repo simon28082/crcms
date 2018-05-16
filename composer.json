@@ -1,65 +1,69 @@
 {
-    "name": "crcms/crcms",
-    "description": "The CrCms Framework.",
-    "keywords": ["crcms", "laravel"],
-    "type": "project",
-    "require": {
-        "php": "^7.1.3",
-        "crcms/framework": "dev-master",
-        "crcms/module": "dev-master",
-        "crcms/user": "dev-master",
-        "crcms/category": "dev-master"
+  "name": "crcms/crcms",
+  "description": "The CrCms Framework.",
+  "keywords": [
+    "crcms",
+    "laravel"
+  ],
+  "type": "project",
+  "require": {
+    "php": "^7.1.3",
+    "crcms/category": "dev-master",
+    "crcms/document": "dev-master",
+    "crcms/framework": "dev-master",
+    "crcms/module": "dev-master",
+    "crcms/user": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "autoload": {
+    "classmap": [
+    ],
+    "psr-4": {
+      "CrCms\\Extensions\\": "extensions/",
+      "CrCms\\Modules\\": "modules/"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^7.0"
-    },
-    "autoload": {
-        "classmap": [
-        ],
-        "psr-4": {
-            "CrCms\\Extensions\\": "extensions/",
-            "CrCms\\Modules\\": "modules/"
-        },
-        "files": [
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": [
-            ]
-        }
-    },
-    "scripts": {
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php bin/artisan key:generate"
-        ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php bin/artisan package:discover"
-        ]
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "optimize-autoloader": true,
-        "platform":{
-            "php":"7.1.12"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://packagist.laravel-china.org"
-        }
+    "files": [
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": [
+      ]
+    }
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@php bin/artisan key:generate"
+    ],
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php bin/artisan package:discover"
+    ]
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "7.1.12"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.laravel-china.org"
+    }
+  }
 }
