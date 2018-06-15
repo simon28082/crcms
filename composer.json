@@ -21,6 +21,7 @@
     "classmap": [
     ],
     "psr-4": {
+      "CrCms\\App\\": "app/",
       "CrCms\\Extensions\\": "extensions/",
       "CrCms\\Modules\\": "modules/"
     },
