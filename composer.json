@@ -47,6 +47,7 @@
       "@php bin/artisan key:generate"
     ],
     "post-autoload-dump": [
+      "@php bin/artisan make:directory storage",
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php bin/artisan package:discover"
     ]
