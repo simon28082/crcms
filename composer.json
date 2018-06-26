@@ -12,7 +12,8 @@
     "crcms/document": "dev-master",
     "crcms/framework": "dev-master",
     "crcms/module": "dev-master",
-    "crcms/user": "dev-master"
+    "crcms/user": "dev-master",
+    "laravel/passport": "^6.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^7.0"
