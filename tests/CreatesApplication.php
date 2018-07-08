@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace CrCms\Tests;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Console\Kernel;

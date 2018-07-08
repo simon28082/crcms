@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace CrCms\Tests\Feature;
 
-use Tests\TestCase;
+use CrCms\Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
