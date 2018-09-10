@@ -3,17 +3,22 @@
   "description": "The CrCms Framework.",
   "keywords": [
     "crcms",
+    "passport",
+    "mall",
+    "cms",
     "laravel"
   ],
   "type": "project",
   "require": {
     "php": "^7.2.4",
-    "crcms/framework": "dev-master",
-    "crcms/mall": "*@dev",
-    "crcms/user": "*@dev",
-    "laravel/passport": "^6.0"
+    "crcms/framework": "dev-master"
   },
   "require-dev": {
+    "beyondcode/laravel-dump-server": "^1.0",
+    "filp/whoops": "^2.0",
+    "fzaninotto/faker": "^1.4",
+    "mockery/mockery": "^1.0",
+    "nunomaduro/collision": "^2.0",
     "phpunit/phpunit": "^7.0"
   },
   "autoload": {
@@ -65,14 +70,6 @@
     "packagist": {
       "type": "composer",
       "url": "https://packagist.laravel-china.org"
-    },
-    "0":{
-      "type":"path",
-      "url":"./modules/user"
-    },
-    "1":{
-      "type":"path",
-      "url":"./modules/mall"
     }
   }
 }
