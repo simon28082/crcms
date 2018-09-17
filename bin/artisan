@@ -1,5 +1,5 @@
 #!/usr/bin/env php
 <?php
 define('ARTISAN_BINARY','bin/artisan');
-
+putenv("RUN_MODE=ARTISAN");
 require __DIR__.'/../public/index.php';

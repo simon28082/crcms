@@ -50,5 +50,4 @@ $app = require_once __DIR__ . '/../vendor/crcms/framework/src/Bootstrap/app.php'
 | and wonderful application we have prepared for them.
 |
 */
-
-\CrCms\Foundation\Start::run($app, $_SERVER['argv'][0] ?? \CrCms\Foundation\StartFactory::TYPE_LARAVEL, $_SERVER['argv'] ?? []);
+\CrCms\Foundation\Start::run($app, getenv('RUN_MODE') ?? \CrCms\Foundation\StartFactory::TYPE_LARAVEL, $_SERVER['argv'] ?? []);
