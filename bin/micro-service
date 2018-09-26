@@ -1,5 +1,4 @@
 #!/usr/bin/env php
 <?php
-putenv('CRCMS_RUN_MODE=HTTP');
-
+putenv('CRCMS_RUN_MODE=MICRO_SERVICE');
 require __DIR__ . '/../public/index.php';

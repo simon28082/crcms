@@ -51,6 +51,6 @@ $app = require_once __DIR__ . '/../vendor/crcms/framework/src/Bootstrap/app.php'
 |
 */
 
-defined('CRCMS_RUN_MODE') ?: define('CRCMS_RUN_MODE', 'HTTP');
+getenv('CRCMS_RUN_MODE') ?: putenv('CRCMS_RUN_MODE=HTTP');
 
-\CrCms\Foundation\Start::run($app, CRCMS_RUN_MODE, $_SERVER['argv'] ?? []);
+\CrCms\Foundation\Start::run($app, getenv('CRCMS_RUN_MODE'), $_SERVER['argv'] ?? []);
