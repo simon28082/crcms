@@ -15,7 +15,7 @@ return [
 
     'paths' => [
         resource_path('views'),
-        \CrCms\Foundation\App\Helpers\framework_path('resources/views')
+        //\CrCms\Foundation\App\Helpers\framework_path('resources/views')
     ],
 
     /*
@@ -29,6 +29,6 @@ return [
     |
     */
 
-    'compiled' => realpath(storage_path('framework/views')),
+    'compiled' => storage_path('framework/views'),
 
 ];
