@@ -143,10 +143,14 @@ return [
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        //CrCms\Foundation\Translation\TranslationServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+        /*
+         * CrCms Framework Service Providers...
+         */
+        CrCms\Foundation\Providers\CrCmsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -160,7 +164,6 @@ return [
 //        CrCms\Foundation\App\Providers\RouteServiceProvider::class,
 //        // App\Providers\AuthServiceProvider::class,
 //        // App\Providers\BroadcastServiceProvider::class,
-        CrCms\Foundation\App\Providers\CrCmsServiceProvider::class,
         //CrCms\Foundation\Client\ClientServiceProvider::class,
         //\CrCms\Foundation\MicroService\MicroServiceProvider::class,
 //        CrCms\Foundation\Rpc\RpcServiceProvider::class
