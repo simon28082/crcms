@@ -2,23 +2,31 @@
 
 return [
     'servers' => [
+//        [
+//            'drive' => 'http',
+//            'host' => '0.0.0.0',
+//            'port' => 222,
+//            'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
+//            'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
+//        ],
+//        [
+//            'drive' => 'socket',
+//            'host' => '0.0.0.0',
+//            'port' => 28999,
+//            'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
+//            'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
+//        ],
         [
-            'drive' => 'http',
+            'drive' => 'micro-service',
             'host' => '0.0.0.0',
             'port' => 22,
-            'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
-            'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
-        ],
-        [
-            'drive' => 'socket',
-            'host' => '0.0.0.0',
-            'port' => 28999,
             'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
             'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
         ],
     ],
 
     'drives' => [
+        'micro-service' => \CrCms\Foundation\Swoole\MicroService\Server::class,
         'http' => \CrCms\Foundation\Swoole\Http\Server::class,
         'socket' => \CrCms\Foundation\Swoole\Socket\Server::class,
     ],
