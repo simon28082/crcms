@@ -23,5 +23,5 @@ return [
     |
     */
 
-    'secret' => env('SERVICE_SERVER_SECRET', null),
+    'secret' => env('SERVICE_SECRET', null),
 ];
