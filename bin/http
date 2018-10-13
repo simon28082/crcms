@@ -1,5 +1,0 @@
-#!/usr/bin/env php
-<?php
-putenv('CRCMS_RUN_MODE=HTTP');
-
-require __DIR__ . '/../public/index.php';
