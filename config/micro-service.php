@@ -40,6 +40,7 @@ return [
     | This will ensure that the next call to the closure will be reported in time, and the wrong data will not appear.
     |
     */
+
     'reload_providers' => [
 
     ],
