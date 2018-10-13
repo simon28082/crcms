@@ -1,47 +1,32 @@
 <?php
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Swoole servers
+    |--------------------------------------------------------------------------
+    |
+    | All swoole server collections
+    |
+    */
     'servers' => [
-//        [
-//            'drive' => 'http',
-//            'host' => '0.0.0.0',
-//            'port' => 222,
-//            'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
-//            'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
-//        ],
-//        [
-//            'drive' => 'socket',
-//            'host' => '0.0.0.0',
-//            'port' => 28999,
-//            'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
-//            'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
-//        ],
-        [
-            'drive' => 'micro-service',
+        'micro-service' => [
             'host' => '0.0.0.0',
             'port' => 22,
             'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
             'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
+            'settings' => []
         ],
     ],
 
-    'drives' => [
-        'micro-service' => \CrCms\Foundation\Swoole\MicroService\Server::class,
-        'http' => \CrCms\Foundation\Swoole\Http\Server::class,
-        'socket' => \CrCms\Foundation\Swoole\Socket\Server::class,
-    ],
+    /*
+    |--------------------------------------------------------------------------
+    | ProcessManager file
+    |--------------------------------------------------------------------------
+    |
+    | Information file for saving all running processes
+    |
+    */
 
-    'notify' => [
-        'targets' => [
-            base_path('modules'),
-            base_path('resources'),
-        ],
-        'monitor' => false,
-        'log_path' => storage_path('logs/reload.log')
-    ],
-    'error_log' => storage_path('logs/error_%s.log'),
-    'process_prefix' => 'swoole_',
-    'pid_file' => storage_path('swoole.pid'),
-    'log_pid_file' => storage_path('log.pid'),
-    'request_log' => storage_path('logs/request-%s.log'),
+    'process_file' => storage_path('process.pid'),
 ];
