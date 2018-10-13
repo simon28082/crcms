@@ -51,12 +51,12 @@
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
     ],
     "post-create-project-cmd": [
-      "@php bin/artisan key:generate"
+      "@php bin/crcms key:generate --ansi"
     ],
     "post-autoload-dump": [
       "@php bin/artisan make:directory storage",
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-      "@php bin/artisan package:discover"
+      "@php bin/crcms package:discover --ansi"
     ]
   },
   "config": {
