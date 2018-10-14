@@ -11,6 +11,7 @@ return [
     */
 
     'providers' => [
+        \CrCms\Foundation\MicroService\Providers\MicroServiceProvider::class,
         \CrCms\Foundation\MicroService\RouteServiceProvider::class,
     ],
 
