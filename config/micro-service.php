@@ -12,7 +12,7 @@ return [
 
     'providers' => [
         \CrCms\Foundation\MicroService\Providers\MicroServiceProvider::class,
-        \CrCms\Foundation\MicroService\RouteServiceProvider::class,
+        \CrCms\Foundation\MicroService\Providers\RouteServiceProvider::class,
     ],
 
     /*
