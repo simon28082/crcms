@@ -40,5 +40,5 @@ return [
     |
     */
 
-    'process_prefix' => 'swoole_',
+    'process_prefix' => 'swoole',
 ];
