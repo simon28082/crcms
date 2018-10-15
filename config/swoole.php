@@ -9,6 +9,7 @@ return [
     | All swoole server collections
     |
     */
+
     'servers' => [
         'micro-service' => [
             'host' => '0.0.0.0',
@@ -29,4 +30,15 @@ return [
     */
 
     'process_file' => storage_path('process.pid'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Swoole Process Prefix
+    |--------------------------------------------------------------------------
+    |
+    | Server process name prefix
+    |
+    */
+
+    'process_prefix' => 'swoole_',
 ];
