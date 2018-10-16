@@ -16,7 +16,9 @@ return [
             'port' => 22,
             'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
             'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
-            'settings' => []
+            'settings' => [
+                'log_file' => storage_path('logs/micro-service.log')
+            ]
         ],
     ],
 
