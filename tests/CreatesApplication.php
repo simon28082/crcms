@@ -9,6 +9,11 @@ use Illuminate\Contracts\Console\Kernel;
 trait CreatesApplication
 {
     /**
+     * @var string
+     */
+    protected $mode = 'laravel';
+
+    /**
      * Creates the application.
      *
      * @return \Illuminate\Foundation\Application
@@ -16,7 +21,7 @@ trait CreatesApplication
     public function createApplication()
     {
         $start = Start::instance();
-        $app = $start->bindApp('laravel');
+        $app = $start->bindApp($this->mode);
         $start->loadKernel();
 
         $app->make(Kernel::class)->bootstrap();
