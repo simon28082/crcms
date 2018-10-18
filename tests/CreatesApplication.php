@@ -2,6 +2,7 @@
 
 namespace CrCms\Tests;
 
+use CrCms\Foundation\Start;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Console\Kernel;
 
@@ -14,7 +15,9 @@ trait CreatesApplication
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../vendor/crcms/framework/src/Bootstrap/app.php';
+        $start = Start::instance();
+        $app = $start->bindApp('laravel');
+        $start->loadKernel();
 
         $app->make(Kernel::class)->bootstrap();
 
