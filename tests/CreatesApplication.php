@@ -21,13 +21,13 @@ trait CreatesApplication
     public function createApplication()
     {
         $start = Start::instance();
-        $app = $start->bindApp($this->mode);
-        $start->loadKernel();
 
-        $app->make(Kernel::class)->bootstrap();
+        $start->bootstrap($this->mode);
+
+        $start->getApp()->make(Kernel::class)->bootstrap();
 
         Hash::driver('bcrypt')->setRounds(4);
 
-        return $app;
+        return $start->getApp();
     }
 }
