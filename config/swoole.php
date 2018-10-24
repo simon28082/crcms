@@ -18,10 +18,24 @@ return [
             'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
             'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
             'settings' => [
+                'user' => env('SWOOLE_USER'),
+                'group' => env('SWOOLE_GROUP'),
                 'log_level' => 4,
                 'log_file' => storage_path('logs/micro-service.log'),
             ]
         ],
+        'http' => [
+            'host' => '0.0.0.0',
+            'port' => 28080,
+            'mode' => defined('SWOOLE_PROCESS') ? SWOOLE_PROCESS : 3,
+            'type' => defined('SWOOLE_SOCK_TCP') ? SWOOLE_SOCK_TCP : 1,
+            'settings' => [
+                'user' => env('SWOOLE_USER'),
+                'group' => env('SWOOLE_GROUP'),
+                'log_level' => 4,
+                'log_file' => storage_path('logs/http.log'),
+            ]
+        ]
     ],
 
     /*

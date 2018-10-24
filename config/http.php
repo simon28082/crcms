@@ -11,6 +11,7 @@ return [
     */
 
     'providers' => [
+        CrCms\Foundation\Http\Providers\HttpServiceProvider::class,
         CrCms\Foundation\App\Providers\RouteServiceProvider::class,
     ],
 
