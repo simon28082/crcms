@@ -26,7 +26,6 @@ return [
     */
 
     'disable_providers' => [
-        \Barryvdh\Cors\ServiceProvider::class
     ],
 
     /*
