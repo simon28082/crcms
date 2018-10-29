@@ -1,0 +1,19 @@
+version: "3"
+
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      args:
+        - RUN_CONTAINTER_MAPPING_PATH=${CONTAINER_CODE_PATH}
+    volumes:
+      - ${CODE_PATH}:${CONTAINER_CODE_PATH}
+    command: ${CONTAINER_CODE_PATH}/docker/nginx/nginx.conf
+    expose:
+      - "80"
+      - "443"
+    ports:
+      - "80:80"
+      - "443:443"
+
