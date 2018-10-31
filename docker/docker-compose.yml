@@ -3,6 +3,10 @@ version: "3"
 
 services:
   nginx:
+#    environment:
+#      - CONTAINTER_MAPPING_PATH=123
+#    env_file:
+#      - ./.docker.env
     build:
       context: ./nginx
       args:
@@ -16,4 +20,20 @@ services:
     ports:
       - "80:80"
       - "443:443"
-
+    links:
+      - php-fpm:php-fpm
+    depends_on:
+      - php-fpm
+  php-fpm:
+    build:
+      context: ./php-fpm
+      args:
+        - RUN_CONTAINTER_MAPPING_PATH=${CONTAINER_CODE_PATH}
+        - RUN_CONTAINTER_PHP_CONF_PATH=/usr/local/etc/php
+        - LOCAL_PHP_CONF_PATH=./conf/php.ini
+    volumes:
+      - ${CODE_PATH}:${CONTAINER_CODE_PATH}
+    expose:
+      - "9000"
+    ports:
+      - "9000:9000"
