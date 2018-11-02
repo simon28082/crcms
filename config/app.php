@@ -167,19 +167,14 @@ return [
         /*
          * Package Service Providers...
          */
-//        \CrCms\Module\Providers\ModuleServiceProvider::class,
+
+        //Please input here
 
         /*
          * Application Service Providers...
          */
-        CrCms\Foundation\App\Providers\EventServiceProvider::class,
-//        CrCms\Foundation\App\Providers\RouteServiceProvider::class,
-//        // App\Providers\AuthServiceProvider::class,
-//        // App\Providers\BroadcastServiceProvider::class,
-        //CrCms\Foundation\Client\ClientServiceProvider::class,
-        //\CrCms\Foundation\MicroService\MicroServiceProvider::class,
-//        CrCms\Foundation\Rpc\RpcServiceProvider::class
 
+        //Please input here
     ],
 
     /*
