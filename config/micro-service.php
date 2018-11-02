@@ -42,7 +42,8 @@ return [
     */
 
     'reload_providers' => [
-
+        \Illuminate\Auth\AuthServiceProvider::class,
+        \Illuminate\Pagination\PaginationServiceProvider::class,
     ],
 
     /*
