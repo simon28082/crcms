@@ -22,4 +22,4 @@ after_success:
 after_deploy: 
 after_script: 
 addons:
-  ssh_known_hosts: 47.52.153.68
+  ssh_known_hosts: 47.52.113.68
