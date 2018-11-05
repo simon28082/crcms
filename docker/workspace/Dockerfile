@@ -13,7 +13,7 @@ ARG RUN_CONTAINTER_MAPPING_PATH=/var/www
 # software
 RUN apt-get update -yqq && \
     # supervisor
-    apt-get install -y supervisor && \
+    apt-get install -y supervisor
     # soft tools
 #    apt-get install -y php7.2-dev && \
 #    apt-get install -y composer && \
@@ -25,7 +25,7 @@ RUN apt-get update -yqq && \
 #    pecl install igbinary && \
 #    pecl install redis && \
     # mkdir
-    mkdir -p ${RUN_CONTAINTER_MAPPING_PATH}
+#    mkdir -p ${RUN_CONTAINTER_MAPPING_PATH}
 
 #ARG PHP_CONFIG_PATH=/etc/php/7.2/cli/conf.d/
 
@@ -34,10 +34,9 @@ RUN apt-get update -yqq && \
 
 # supervisor
 COPY ./supervisor /etc/supervisor
-ENV SUPERVISOR_CONFIG_PATH=/etc/supervisor/supervisord.conf
+ARG SUPERVISOR_CONFIG_PATH=/etc/supervisor/supervisord.conf
 #RUN /usr/bin/python /usr/bin/supervisord -c ${SUPERVISOR_CONFIG_PATH}
 
-RUN echo ./crontab/schedule >> /etc/crontab
 
 # user
 ARG PUID=1000
@@ -53,4 +52,6 @@ EXPOSE 80
 EXPOSE 443
 EXPOSE 28080
 
-CMD ["/usr/bin/python","/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]
+#CMD ["/usr/bin/python","/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]
+CMD []
+ENTRYPOINT ["/var/www/docker/workspace/run.sh"]
