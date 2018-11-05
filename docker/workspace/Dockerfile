@@ -8,33 +8,36 @@ ENV TZ ${TZ}
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+ARG RUN_CONTAINTER_MAPPING_PATH=/var/www
+
 # software
 RUN apt-get update -yqq && \
     # supervisor
-    apt-get install supervisor && \
+    apt-get install -y supervisor && \
     # soft tools
-    apt-get install -y php7.2-dev && \
-    apt-get install -y composer && \
+#    apt-get install -y php7.2-dev && \
+#    apt-get install -y composer && \
     # pecl extension
-    pecl channel-update pecl.php.net && \
-    pecl install swoole && \
-    pecl install mongodb && \
-    #reids needs igbinary
-    pecl install igbinary && \
-    pecl install redis
+#    pecl channel-update pecl.php.net && \
+#    pecl install swoole && \
+#    pecl install mongodb && \
+#    #reids needs igbinary
+#    pecl install igbinary && \
+#    pecl install redis && \
+    # mkdir
+    mkdir -p ${RUN_CONTAINTER_MAPPING_PATH}
 
-ARG PHP_CONFIG_PATH=/etc/php/7.2/cli/conf.d
+#ARG PHP_CONFIG_PATH=/etc/php/7.2/cli/conf.d/
 
-WORKDIR PHP_CONFIG_PATH
+# copy php extension *.ini
+#COPY ./conf.d ${PHP_CONFIG_PATH}
 
-COPY ./conf.d/*.ini PHP_CONFIG_PATH
+# supervisor
+COPY ./supervisor /etc/supervisor
+ENV SUPERVISOR_CONFIG_PATH=/etc/supervisor/supervisord.conf
+#RUN /usr/bin/python /usr/bin/supervisord -c ${SUPERVISOR_CONFIG_PATH}
 
-#ARG SUPERVISOR_CONF_PATH=./supervisor/supervisord.conf
-
-
-
-#/usr/bin/python /usr/bin/supervisord -c ./supervisor/supervisord.conf
-
+RUN echo ./crontab/schedule >> /etc/crontab
 
 # user
 ARG PUID=1000
@@ -49,3 +52,5 @@ RUN groupadd -g ${PGID} crcms && \
 EXPOSE 80
 EXPOSE 443
 EXPOSE 28080
+
+CMD ["/usr/bin/python","/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]

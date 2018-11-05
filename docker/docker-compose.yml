@@ -1,17 +1,18 @@
 version: "3"
 
-
 services:
   workspace:
     build:
       context: ./workspace
+      args:
+        - RUN_CONTAINTER_MAPPING_PATH=${CONTAINER_CODE_PATH}
     volumes:
       - ${CODE_PATH}:${CONTAINER_CODE_PATH}
+    expose:
+      - "28081"
+    ports:
+      - "28081:28081"
   nginx:
-#    environment:
-#      - CONTAINTER_MAPPING_PATH=123
-#    env_file:
-#      - ./.docker.env
     build:
       context: ./nginx
       args:
