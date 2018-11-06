@@ -34,18 +34,22 @@ RUN ln -snf /usr/share/zoneinfo/${ARG_TIMEZONE} /etc/localtime && echo ${ARG_TIM
 
 
 #### php pecl #############################
+ARG ARG_PHP_MODS_AVAILABLE_PATH=/etc/php/7.2/mods-available
+ARG ARG_PHP_CONF_PATH=/etc/php/7.2/cli/conf.d
 # swoole
 ARG ARG_WORKSPACE_INSTALL_SWOOLE=false
 RUN if [ ${ARG_WORKSPACE_INSTALL_SWOOLE} = true ]; then \
     pecl install swoole \
-    && cp ./php/swoole.ini /etc \
-#    && ln -s \
+    && echo "extension=swoole.so" > ${ARG_PHP_MODS_AVAILABLE_PATH}/swoole.ini \
+    && ln -s ${ARG_PHP_MODS_AVAILABLE_PATH}/swoole.ini ${ARG_PHP_CONF_PATH}/20-swoole.ini \
 ;fi
 
 # mongodb
 ARG ARG_WORKSPACE_INSTALL_MONGODB=false
 RUN if [ ${ARG_WORKSPACE_INSTALL_MONGODB} = true ]; then \
     pecl install mongodb \
+    && echo "extension=mongodb.so" > ${ARG_PHP_MODS_AVAILABLE_PATH}/mongodb.ini \
+    && ln -s ${ARG_PHP_MODS_AVAILABLE_PATH}/mongodb.ini ${ARG_PHP_CONF_PATH}/20-mongodb.ini \
 ;fi
 
 # redis
@@ -53,7 +57,11 @@ ARG ARG_WORKSPACE_INSTALL_REDIS=false
 RUN if [ ${ARG_WORKSPACE_INSTALL_REDIS} = true ]; then \
     #reids needs igbinary
     pecl install igbinary \
+    && echo "extension=igbinary.so" > ${ARG_PHP_MODS_AVAILABLE_PATH}/igbinary.ini \
+    && ln -s ${ARG_PHP_MODS_AVAILABLE_PATH}/igbinary.ini ${ARG_PHP_CONF_PATH}/20-igbinary.ini \
     && pecl install redis \
+    && echo "extension=redis.so" > ${ARG_PHP_MODS_AVAILABLE_PATH}/redis.ini \
+    && ln -s ${ARG_PHP_MODS_AVAILABLE_PATH}/redis.ini ${ARG_PHP_CONF_PATH}/20-redis.ini \
 ;fi
 
 
