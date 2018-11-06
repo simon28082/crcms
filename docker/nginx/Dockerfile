@@ -2,18 +2,22 @@ FROM nginx
 
 MAINTAINER simon
 
-ARG RUN_CONTAINTER_MAPPING_PATH
+#### user and group #############################
+ARG ARG_APP_RUN_PUID=1000
+ARG ARG_APP_RUN_PGID=1000
+ARG ARG_APP_RUN_NAME=crcms
+ARG ARG_APP_RUN_GROUP=crcms
+RUN groupadd -g ${ARG_APP_RUN_PGID} ${ARG_APP_RUN_GROUP} && \
+    useradd -u ${ARG_APP_RUN_PUID} -g ${ARG_APP_RUN_PGID} ${ARG_APP_RUN_NAME} && \
+    usermod -s /sbin/nologin ${ARG_APP_RUN_NAME}
 
-WORKDIR ${RUN_CONTAINTER_MAPPING_PATH}
+#### cmd #############################
+CMD ["/bin/bash"]
 
-RUN chown nginx:nginx -R ${RUN_CONTAINTER_MAPPING_PATH}
+#### workdir #############################
+ARG ARG_CONTAINER_CODE_PATH=/var/www
+WORKDIR ${ARG_CONTAINER_CODE_PATH}
 
-#ENV x=${RUN_CONTAINTER_MAPPING_PATH}
-
-#CMD ["nginx", "-g", "daemon off;", "-c", "/${x}/docker/nginx/nginx.conf"]
-#CMD ["nginx", "-g", "daemon off;", "-c", "/$${RUN_CONTAINTER_MAPPING_PATH}/docker/nginx/nginx.conf"]
-
-ENTRYPOINT ["nginx", "-g", "daemon off;", "-c"]
-
+#### expose #############################
 EXPOSE 80
 EXPOSE 443

@@ -1,21 +1,52 @@
 FROM php:7.2-fpm
 
+
 MAINTAINER simon
 
-RUN apt-get update -yqq && \
-    pecl channel-update pecl.php.net && \
-    pecl install redis && \
-    pecl install mongodb && \
-    docker-php-ext-enable redis mongodb
 
-ARG LOCAL_PHP_CONF_PATH
-ARG RUN_CONTAINTER_MAPPING_PATH
-ARG RUN_CONTAINTER_PHP_CONF_PATH
+#### user and group #############################
+ARG ARG_APP_RUN_PUID=1000
+ARG ARG_APP_RUN_PGID=1000
+ARG ARG_APP_RUN_NAME=crcms
+ARG ARG_APP_RUN_GROUP=crcms
+RUN groupadd -g ${ARG_APP_RUN_PGID} ${ARG_APP_RUN_GROUP} && \
+    useradd -u ${ARG_APP_RUN_PUID} -g ${ARG_APP_RUN_PGID} ${ARG_APP_RUN_NAME} && \
+    usermod -s /sbin/nologin ${ARG_APP_RUN_NAME}
 
-WORKDIR "${RUN_CONTAINTER_PHP_CONF_PATH}"
 
-COPY "${LOCAL_PHP_CONF_PATH}" "${RUN_CONTAINTER_PHP_CONF_PATH}"
+#### software install #############################
+RUN apt-get update -yqq \
+    && pecl channel-update pecl.php.net
 
-WORKDIR "${RUN_CONTAINTER_MAPPING_PATH}"
+#### php pecl #############################
+# mongodb
+ARG ARG_PHP_FPM_INSTALL_MONGODB=false
+RUN if [ ${ARG_PHP_FPM_INSTALL_MONGODB} = true ]; then \
+    pecl install mongodb \
+    && docker-php-ext-enable mongodb \
+;fi
 
+# redis
+ARG ARG_PHP_FPM_INSTALL_REDIS=false
+RUN if [ ${ARG_PHP_FPM_INSTALL_REDIS} = true ]; then \
+    pecl install redis \
+    && docker-php-ext-enable redis \
+;fi
+
+# copy php.ini
+ARG ARG_PHP_CONFIG_PATH=/usr/local/etc/php
+ARG ARG_LOCAL_PHP_CONFIG_PATH=./conf/php.ini
+COPY ${ARG_LOCAL_PHP_CONFIG_PATH} ${ARG_PHP_CONFIG_PATH}
+
+
+#### workdir #############################
+ARG ARG_CONTAINER_CODE_PATH=/var/www
+WORKDIR ${ARG_CONTAINER_CODE_PATH}
+
+
+#### expose #############################
 EXPOSE 9000
+
+
+#### cmd #############################
+CMD ["/bin/bash"]

@@ -1,57 +1,63 @@
 FROM ubuntu:latest
 
+
 MAINTAINER simon
 
+
+#### user and group #############################
+ARG ARG_APP_RUN_PUID=1000
+ARG ARG_APP_RUN_PGID=1000
+ARG ARG_APP_RUN_NAME=crcms
+ARG ARG_APP_RUN_GROUP=crcms
+RUN groupadd -g ${ARG_APP_RUN_PGID} ${ARG_APP_RUN_GROUP} && \
+    useradd -u ${ARG_APP_RUN_PUID} -g ${ARG_APP_RUN_PGID} ${ARG_APP_RUN_NAME} && \
+    usermod -s /sbin/nologin ${ARG_APP_RUN_NAME}
+
 # Set Timezone
-ARG TZ=UTC
-ENV TZ ${TZ}
+#ARG TZ=UTC
+#ENV TZ ${TZ}
+#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ARG RUN_CONTAINTER_MAPPING_PATH=/var/www
-
-# software
-RUN apt-get update -yqq && \
+#### software #############################
+RUN apt-get update -yqq \
+    && apt-get install -y cron \
+    && apt-get install -y vim \
     # supervisor
-    apt-get install -y supervisor
-    # soft tools
-#    apt-get install -y php7.2-dev && \
-#    apt-get install -y composer && \
-    # pecl extension
-#    pecl channel-update pecl.php.net && \
-#    pecl install swoole && \
-#    pecl install mongodb && \
-#    #reids needs igbinary
-#    pecl install igbinary && \
-#    pecl install redis && \
-    # mkdir
-#    mkdir -p ${RUN_CONTAINTER_MAPPING_PATH}
-
-#ARG PHP_CONFIG_PATH=/etc/php/7.2/cli/conf.d/
-
-# copy php extension *.ini
-#COPY ./conf.d ${PHP_CONFIG_PATH}
-
-# supervisor
-COPY ./supervisor /etc/supervisor
-ARG SUPERVISOR_CONFIG_PATH=/etc/supervisor/supervisord.conf
-#RUN /usr/bin/python /usr/bin/supervisord -c ${SUPERVISOR_CONFIG_PATH}
+    && apt-get install -y supervisor \
+    # php
+    && sh -c '/bin/echo -e "6\n69" | apt-get install -yqq php7.2-dev' \
+    && apt-get install -y composer
 
 
-# user
-ARG PUID=1000
-ENV PUID ${PUID}
-ARG PGID=1000
-ENV PGID ${PGID}
+#### php pecl #############################
+# swoole
+ARG ARG_WORKSPACE_INSTALL_SWOOLE=false
+RUN if [ ${ARG_WORKSPACE_INSTALL_SWOOLE} = true ]; then \
+    pecl install swoole \
+    && cp ./php/swoole.ini /etc \
+#    && ln -s \
+;fi
 
-RUN groupadd -g ${PGID} crcms && \
-    useradd -u ${PUID} -g crcms -m crcms && \
-    usermod -p "*" crcms
+# mongodb
+ARG ARG_WORKSPACE_INSTALL_MONGODB=false
+RUN if [ ${ARG_WORKSPACE_INSTALL_MONGODB} = true ]; then \
+    pecl install mongodb \
+;fi
 
-EXPOSE 80
-EXPOSE 443
+# redis
+ARG ARG_WORKSPACE_INSTALL_REDIS=false
+RUN if [ ${ARG_WORKSPACE_INSTALL_REDIS} = true ]; then \
+    #reids needs igbinary
+    pecl install igbinary \
+    && pecl install redis \
+;fi
+
+
+#### expose #############################
 EXPOSE 28080
 
-#CMD ["/usr/bin/python","/usr/bin/supervisord","-c","/etc/supervisor/supervisord.conf"]
-CMD []
-ENTRYPOINT ["/var/www/docker/workspace/run.sh"]
+
+#### workdir #############################
+ARG ARG_CONTAINER_CODE_PATH=/var/www
+WORKDIR ${ARG_CONTAINER_CODE_PATH}

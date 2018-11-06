@@ -1,1 +1,2 @@
-* * * * * root php /var/www/bin/artisan ${APPLICATION_RUN_MODE} schedule:run >> /dev/null 2>&1
+* * * * * root php ${CONTAINER_CODE_PATH}/bin/artisan ${APP_RUN_MODE} schedule:run >> /dev/null 2>&1
+* * * * * root bash ${CONTAINER_DOCKER_PATH}/test.sh >> /dev/null 2>&1
