@@ -51,6 +51,7 @@ services:
       - APP_RUN_PGID=${APP_RUN_PGID}
       - APP_RUN_NAME=${APP_RUN_NAME}
       - APP_RUN_GROUP=${APP_RUN_GROUP}
+      - PHP_FPM_PORT=${PHP_FPM_PORT}
     volumes:
       - ${LOCAL_CODE_PATH}:${CONTAINER_CODE_PATH}
     command: ${CONTAINER_DOCKER_PATH}/nginx/run.sh
@@ -64,6 +65,7 @@ services:
       - php-fpm:php-fpm
     depends_on:
       - php-fpm
+      - workspace
   php-fpm:
     build:
       context: ${LOCAL_DOCKER_PATH}/php-fpm
