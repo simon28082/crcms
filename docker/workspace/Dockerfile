@@ -29,8 +29,8 @@ RUN apt-get update -yqq \
 
 
 #### set timezone #############################
-ARG TIMEZONE=UTC
-RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
+ARG ARG_TIMEZONE=UTC
+RUN ln -snf /usr/share/zoneinfo/${ARG_TIMEZONE} /etc/localtime && echo ${ARG_TIMEZONE} > /etc/timezone
 
 
 #### php pecl #############################

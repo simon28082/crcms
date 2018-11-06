@@ -14,6 +14,11 @@ RUN groupadd -g ${ARG_APP_RUN_PGID} ${ARG_APP_RUN_GROUP} && \
     usermod -s /sbin/nologin ${ARG_APP_RUN_NAME}
 
 
+#### set timezone #############################
+ARG ARG_TIMEZONE=UTC
+RUN ln -snf /usr/share/zoneinfo/${ARG_TIMEZONE} /etc/localtime && echo ${ARG_TIMEZONE} > /etc/timezone
+
+
 #### software install #############################
 RUN apt-get update -yqq \
     && pecl channel-update pecl.php.net
