@@ -55,7 +55,6 @@
       "@php bin/crcms key:generate --ansi"
     ],
     "post-autoload-dump": [
-      "@php bin/artisan make:directory storage",
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php bin/crcms package:discover --ansi"
     ]
