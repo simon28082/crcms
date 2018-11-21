@@ -30,5 +30,8 @@ do
     fi
 done
 
+# clean opcache
+php -r 'if(function_exists("opcache_reset")) {opcache_reset();}'
+
 # run
 php-fpm -c ${PHP_FPM_RUN_CONF_PATH}/php.ini -y ${PHP_FPM_RUN_CONF_PATH}/php-fpm.conf

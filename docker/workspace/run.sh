@@ -7,9 +7,7 @@ WORKSPACE_PATH="${CONTAINER_DOCKER_PATH}/workspace"
 
 # crontab
 cat ${WORKSPACE_PATH}/crontab/schedule \
-| sed "1s#\${CONTAINER_CODE_PATH}#${CONTAINER_CODE_PATH}#g" \
-| sed "1s#\${APP_RUN_MODE}#${APP_RUN_MODE}#g" \
-| sed "2s#\${CONTAINER_DOCKER_PATH}#${CONTAINER_DOCKER_PATH}#g"  > /etc/crontab
+| sed "1s#\${CONTAINER_CODE_PATH}#${CONTAINER_CODE_PATH}#g" > /etc/crontab
 
 service cron restart
 
