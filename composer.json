@@ -11,11 +11,12 @@
   "type": "project",
   "require": {
     "php": "^7.2.4",
-    "crcms/framework": "dev-master"
+    "crcms/framework": "dev-4.x-dev"
   },
   "require-dev": {
     "beyondcode/laravel-dump-server": "^1.0",
     "filp/whoops": "^2.0",
+    "laravel/tinker": "^1.0",
     "fzaninotto/faker": "^1.4",
     "mockery/mockery": "^1.0",
     "nunomaduro/collision": "^2.0",

@@ -37,4 +37,4 @@ require __DIR__ . '/../vendor/autoload.php';
 |
 */
 
-\CrCms\Foundation\Start::run($_SERVER['argv'] ?? []);
+\CrCms\Framework\Bootstrap\Start::run($_SERVER['argv'] ?? [], realpath(__DIR__ . '/../'));

@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-define('ARTISAN_BINARY','bin/crcms');
+define('ARTISAN_BINARY', 'bin/crcms');
 define('LARAVEL_START', microtime(true));
 
 /*
@@ -15,7 +15,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +27,4 @@ require __DIR__.'/../vendor/autoload.php';
 | or another output device for the developers. Here goes nothing!
 |
 */
-\CrCms\Foundation\Start::run($_SERVER['argv'] ?? [],null);
+\CrCms\Framework\Bootstrap\Start::run($_SERVER['argv'] ?? [], realpath(__DIR__ . '/../'));
