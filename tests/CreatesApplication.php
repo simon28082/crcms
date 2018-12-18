@@ -24,10 +24,10 @@ trait CreatesApplication
 
         $start->bootstrap($this->mode);
 
-        $start->getApp()->make(Kernel::class)->bootstrap();
+        $start->getApplication()->make(Kernel::class)->bootstrap();
 
         Hash::driver('bcrypt')->setRounds(4);
 
-        return $start->getApp();
+        return $start->getApplication();
     }
 }
