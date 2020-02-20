@@ -1,72 +1,66 @@
 {
-  "name": "crcms/crcms",
-  "description": "The CrCms Framework.",
-  "keywords": [
-    "crcms",
-    "passport",
-    "mall",
-    "cms",
-    "laravel"
-  ],
-  "type": "project",
-  "require": {
-    "php": "^7.2.4",
-    "crcms/framework": "dev-4.x-dev"
-  },
-  "require-dev": {
-    "beyondcode/laravel-dump-server": "^1.0",
-    "filp/whoops": "^2.0",
-    "laravel/tinker": "^1.0",
-    "fzaninotto/faker": "^1.4",
-    "mockery/mockery": "^1.0",
-    "nunomaduro/collision": "^2.0",
-    "phpunit/phpunit": "^7.0"
-  },
-  "autoload": {
-    "classmap": [
+    "name": "crcms/crcms",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "crcms",
+        "cms"
     ],
-    "psr-4": {
-      "CrCms\\App\\": "app/",
-      "CrCms\\Extensions\\": "extensions/",
-      "CrCms\\Modules\\": "modules/"
+    "license": "MIT",
+    "require": {
+        "php": "^7.4",
+        "fideloper/proxy": "^4.0",
+        "laravel/framework": "^6.2",
+        "laravel/tinker": "^2.0"
     },
-    "files": [
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "CrCms\\Tests\\": "tests/"
+    "require-dev": {
+        "facade/ignition": "^1.4",
+        "fzaninotto/faker": "^1.9.1",
+        "mockery/mockery": "^1.0",
+        "nunomaduro/collision": "^3.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Application\\": "app/Application",
+            "Domain\\": "app/Domain",
+            "Infrastructure\\": "app/Infrastructure",
+            "Interfaces\\": "app/Interfaces"
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "scripts/init.sh",
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php bin/artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php bin/artisan key:generate --ansi"
+        ]
     }
-  },
-  "extra": {
-    "laravel": {
-      "dont-discover": [
-      ]
-    }
-  },
-  "scripts": {
-    "post-root-package-install": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "post-install-cmd": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "post-create-project-cmd": [
-      "@php bin/crcms key:generate --ansi"
-    ],
-    "post-autoload-dump": [
-      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-      "@php bin/crcms package:discover --ansi"
-    ]
-  },
-  "config": {
-    "preferred-install": "dist",
-    "sort-packages": true,
-    "optimize-autoloader": true,
-    "platform": {
-      "php": "7.2.4"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
 }

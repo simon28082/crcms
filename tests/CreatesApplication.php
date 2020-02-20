@@ -1,9 +1,7 @@
 <?php
 
-namespace CrCms\Tests;
+namespace Tests;
 
-use CrCms\Foundation\Start;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Console\Kernel;
 
 trait CreatesApplication
@@ -15,14 +13,10 @@ trait CreatesApplication
      */
     public function createApplication()
     {
-        $start = Start::instance();
+        $app = require __DIR__.'/../bootstrap/app.php';
 
-        $start->bootstrap();
+        $app->make(Kernel::class)->bootstrap();
 
-        $start->getApplication()->make(Kernel::class)->bootstrap();
-
-        Hash::driver('bcrypt')->setRounds(4);
-
-        return $start->getApplication();
+        return $app;
     }
 }
