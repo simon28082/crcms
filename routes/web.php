@@ -11,6 +11,11 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::post('/documents',\Interfaces\Admin\Handlers\CreateDocumentHandler::class);

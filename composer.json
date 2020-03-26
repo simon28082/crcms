@@ -14,7 +14,8 @@
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
         "spatie/data-transfer-object": "^1.13",
-        "tucker-eric/eloquentfilter": "^2.3"
+        "tucker-eric/eloquentfilter": "^2.3",
+        "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
@@ -54,7 +55,6 @@
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
-            "scripts/init.sh",
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php bin/artisan package:discover --ansi"
         ],

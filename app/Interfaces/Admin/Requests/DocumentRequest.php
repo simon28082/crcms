@@ -13,14 +13,14 @@ namespace Interfaces\Admin\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class DocumentRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
             'title' => ['required', 'max:120'],
             'content' => ['required'],
-            'status' => ['required', 'integer'],
+//            'status' => ['required', 'integer'],
             'published_at' => ['required','date_format:Y-m-d H:i:s']
         ];
     }

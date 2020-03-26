@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5dc492e5f79a4c7920df633e500b7fe",
+    "content-hash": "826a09d58bb026a2c4d81aa98d0fae40",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3402,21 +3402,19 @@
                 "environment"
             ],
             "time": "2019-09-10T21:37:39+00:00"
-        }
-    ],
-    "packages-dev": [
+        },
         {
-            "name": "crcms/event",
-            "version": "1.0.2",
+            "name": "webpatser/laravel-uuid",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/crcms/event.git",
-                "reference": "7ff96b0bf58fe2bc443bfaa6986bdc3cc82ec9b5"
+                "url": "https://github.com/webpatser/laravel-uuid.git",
+                "reference": "a7ce65cdabbc9970fc2a87fdf67b48e0b1641d23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crcms/event/zipball/7ff96b0bf58fe2bc443bfaa6986bdc3cc82ec9b5",
-                "reference": "7ff96b0bf58fe2bc443bfaa6986bdc3cc82ec9b5",
+                "url": "https://api.github.com/repos/webpatser/laravel-uuid/zipball/a7ce65cdabbc9970fc2a87fdf67b48e0b1641d23",
+                "reference": "a7ce65cdabbc9970fc2a87fdf67b48e0b1641d23",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -3426,13 +3424,26 @@
                 ]
             },
             "require": {
-                "illuminate/support": "^5.3|^6.0",
-                "php": ">=7.0.0"
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "~1.4",
+                "phpunit/phpunit": "~6.0"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Webpatser\\Uuid\\UuidServiceProvider"
+                    ],
+                    "aliases": {
+                        "Uuid": "Webpatser\\Uuid\\Uuid"
+                    }
+                }
+            },
             "autoload": {
-                "psr-4": {
-                    "CrCms\\Event\\": "src/"
+                "psr-0": {
+                    "Webpatser\\Uuid": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3441,78 +3452,19 @@
             ],
             "authors": [
                 {
-                    "name": "simon",
-                    "email": "crcms@crcms.cn",
-                    "homepage": "http://crcms.cn"
+                    "name": "Christoph Kempen",
+                    "email": "christoph@downsized.nl"
                 }
             ],
-            "description": "event",
+            "description": "Laravel package to generate and to validate a universally unique identifier (UUID) according to the RFC 4122 standard. Support for version 1, 3, 4 and 5 UUIDs are built-in.",
+            "homepage": "https://github.com/webpatser/uuid",
             "keywords": [
-                "crcms",
-                "event",
-                "observer",
-                "php"
+                "UUID RFC4122"
             ],
-            "time": "2019-10-28T12:33:46+00:00"
-        },
-        {
-            "name": "crcms/repository",
-            "version": "2.1.17",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/crcms/repository.git",
-                "reference": "7a0ecdc325795a10c627a2600e05406489a5256e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/crcms/repository/zipball/7a0ecdc325795a10c627a2600e05406489a5256e",
-                "reference": "7a0ecdc325795a10c627a2600e05406489a5256e",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "crcms/event": "~1.0.0",
-                "illuminate/cache": "^5.5|^6.0",
-                "illuminate/console": "^5.5|^6.0",
-                "illuminate/database": "^5.5|^6.0",
-                "illuminate/support": "^5.5|^6.0",
-                "php": ">=7.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "CrCms\\Repository\\RepositoryServiceProvider"
-                    ],
-                    "aliases": []
-                }
-            },
-            "autoload": {
-                "files": [],
-                "psr-4": {
-                    "CrCms\\Repository\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Detached model and controller warehouse data provider",
-            "homepage": "https://github.com/crcms/repository",
-            "keywords": [
-                "laravel",
-                "model",
-                "orm",
-                "php",
-                "repository"
-            ],
-            "time": "2019-10-28T12:32:55+00:00"
-        },
+            "time": "2017-10-04T07:47:40+00:00"
+        }
+    ],
+    "packages-dev": [
         {
             "name": "doctrine/instantiator",
             "version": "1.3.0",
