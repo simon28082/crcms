@@ -10,11 +10,11 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
-        "crcms/repository": "^2.1",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
-        "spatie/data-transfer-object": "^1.13"
+        "spatie/data-transfer-object": "^1.13",
+        "tucker-eric/eloquentfilter": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
